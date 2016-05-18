@@ -40,6 +40,7 @@ from nova.compute import hv_type
 from nova.compute import power_state
 from nova.compute import task_states
 from nova.compute import vm_mode
+import nova.conf
 from nova import exception
 from nova.image import glance
 from nova import objects
@@ -55,9 +56,7 @@ from novadocker.virt.docker import hostinfo
 from novadocker.virt.docker import network
 from novadocker.virt import hostutils
 
-CONF = cfg.CONF
-CONF.import_opt('my_ip', 'nova.netconf')
-CONF.import_opt('instances_path', 'nova.compute.manager')
+CONF = nova.conf.CONF
 
 docker_opts = [
     cfg.StrOpt('root_directory',

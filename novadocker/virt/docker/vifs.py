@@ -18,6 +18,7 @@
 from oslo_concurrency import processutils
 from oslo_log import log as logging
 
+import nova.conf
 from nova import exception
 from nova.network import linux_net
 from nova.network import manager
@@ -31,11 +32,7 @@ import random
 # We need config opts from manager, but pep8 complains, this silences it.
 assert manager
 
-CONF = cfg.CONF
-CONF.import_opt('my_ip', 'nova.netconf')
-CONF.import_opt('vlan_interface', 'nova.manager')
-CONF.import_opt('flat_interface', 'nova.manager')
-CONF.import_opt('network_device_mtu', 'nova.objects.network')
+CONF = nova.conf.CONF
 
 LOG = logging.getLogger(__name__)
 
