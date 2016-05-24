@@ -76,6 +76,10 @@ function is_docker_running {
     return 0
 }
 
+function docker_has_image {
+    test $(docker images -q $1 | wc -l) -gt 0
+}
+
 # install_nova_hypervisor() - Install external components
 function install_nova_hypervisor {
     setup_develop $DOCKER_DIR
@@ -107,7 +111,9 @@ function start_nova_hypervisor {
         # Dance around the image that got renamed
         #docker pull ewindisch/$DOCKER_IMAGE_NAME
         #docker tag ewindisch/$DOCKER_IMAGE_NAME:latest $DOCKER_IMAGE_NAME
-        docker pull $DOCKER_IMAGE_NAME
+        if ! ( docker_has_image $DOCKER_IMAGE_NAME ); then
+            docker pull $DOCKER_IMAGE_NAME
+        fi
 
         echo "Saving $DOCKER_IMAGE_NAME to glance..."
         TOKEN=$(openstack token issue -c id -f value)
