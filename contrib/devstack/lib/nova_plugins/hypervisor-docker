@@ -105,8 +105,9 @@ function start_nova_hypervisor {
         echo "Pulling $DOCKER_IMAGE_NAME..."
 
         # Dance around the image that got renamed
-        docker pull ewindisch/$DOCKER_IMAGE_NAME
-        docker tag ewindisch/$DOCKER_IMAGE_NAME:latest $DOCKER_IMAGE_NAME
+        #docker pull ewindisch/$DOCKER_IMAGE_NAME
+        #docker tag ewindisch/$DOCKER_IMAGE_NAME:latest $DOCKER_IMAGE_NAME
+        docker pull $DOCKER_IMAGE_NAME
 
         echo "Saving $DOCKER_IMAGE_NAME to glance..."
         TOKEN=$(openstack token issue -c id -f value)
